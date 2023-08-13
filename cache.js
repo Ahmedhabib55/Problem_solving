@@ -1,20 +1,13 @@
-// a simple function to add something
-const add = (n) => (n + 10);
-add(9);
+// leetcode memoize 
+// https://leetcode.com/problems/memoize/?envType=study-plan-v2&envId=30-days-of-javascript
 
-// a simple memoized function to add something
 function memoize(fn) {
+	let cache = {};
   return function(...args) {
-		console.log(args);
     const key = JSON.stringify(args);
-		console.log(key);
+    if (key in cache){
+      return cache[key];
+    }
+    return (cache[key] = fn(...args));
   };
 }
-
-const memoizedAdd = memoize(3)(1,2,45,50);
-memoizedAdd()
-
-// // returned function from memoizedAdd
-// const newAdd = memoizedAdd();
-// console.log(newAdd(9));	// calculated
-// console.log(newAdd(9));	// cached
